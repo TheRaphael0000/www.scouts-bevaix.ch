@@ -1,0 +1,54 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+  <title>{% block title %}{% endblock %} · Scouts Bevaix</title>
+</head>
+
+<body>
+  <div class="container">
+    <nav class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <a href="." class="d-flex align-items-center col-md-3 mb-md-0">
+        <img src="{% static 'logos/Logo_Abbaye_100.png' %}" class="img-fluid" alt="image halle 0">
+      </a>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="." class="nav-link px-2 link-secondary">Accueil</a></li>
+        <li><a href="scoutisme" class="nav-link px-2 link-secondary">Scoutisme</a></li>
+        <!-- <li><a href="actualites" class="nav-link px-2 link-dark">Actualités</a></li> -->
+        <li><a href="calendrier" class="nav-link px-2 link-dark">Calendrier</a></li>
+        <li><a href="albums" class="nav-link px-2 link-dark">Albums</a></li>
+        <li><a href="locations" class="nav-link px-2 link-dark">Locations</a></li>
+        <li><a href="carte" class="nav-link px-2 link-dark">Carte</a></li>
+        <li><a href="contacts" class="nav-link px-2 link-dark">Contacts</a></li>
+      </ul>
+
+      <div class="col-md-3 text-end">
+        <button type="button" class="btn btn-outline-primary me-2">Connexion</button>
+      </div>
+    </nav>
+    <header>
+      <h1>{% block header %}{% endblock %}</h1>
+    </header>
+
+    <main class="container">
+      {% block main %}{% endblock %}
+    </main>
+
+    <footer class="d-flex justify-content-center p-3">
+      <span class="px-2">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></i></a>
+        <a href="#"><i class="fab fa-github"></i></i></a>
+      </span>
+      2021 Copyleft : scouts-bevaix.ch
+    </footer>
+  </div>
+</body>
+
+</html>

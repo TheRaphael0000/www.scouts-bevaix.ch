@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Contacts{% endblock %}
+{% block header %}Contacter les responsables{% endblock %}
+
+{% block main %}
+<div class="row row-cols-md-3">
+  {% for contact in contacts %}
+  <div class="col mb-3">
+    <div class="card">
+      {# <img src="..." class="card-img-top" alt="..."> #}
+      <div class="card-body">
+        <h5 class="card-title">{{ contact.titre }}</h5>
+        <p class="card-text">{{ contact.nom }}</p>
+        <p class="card-text">Email : <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
+        <p class="card-text">Téléphone : {{ contact.telephone }}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

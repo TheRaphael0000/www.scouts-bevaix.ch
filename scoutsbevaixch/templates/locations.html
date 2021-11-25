@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Locations{% endblock %}
+{% block header %}Locations du châlet scout{% endblock %}
+
+{% block main %}
+<p class="text-danger">
+  Les locations sont temporairement interrompues par manque de gérant. Si vous êtes intéressé par le remplacement du gérant, veuillez contacter le responsable du groupe.
+</p>
+
+<p>
+  La location du chalet est au prix de 150 CHF par journées.
+</p>
+<p>
+  Il est possible d'avoir un accès aux dortoirs (10 personnes) pour un supplément de 50 CHF.
+</p>
+<p>
+  Pour réserver, vous pouvez trouver nos coordonnées dans la rubrique contact. Si vous désirez vérifier votre date, vous pouvez consulter le calendrier dans la rubrique agenda.
+</p>
+<p>
+  Contract de locations : <a href="contact_de_location.pdf">contact_de_location.pdf</a>
+</p>
+
+<p>
+  Dans le prix de la location, est compris :
+</p>
+<ul>
+  <li><a href="#rent-halle">Salle principale</a></li>
+  <ul>
+    <li>9 tables</li>
+    <li>40 chaises</li>
+    <li>Poêle (chauffage)</li>
+  </ul>
+  <li><a href="#rent-dortoires">Dortoirs</a></li>
+  <ul>
+    <li>8 places</li>
+    <li>10 matelas supplémentaires</li>
+    <li>Oreiller</li>
+    <li>Couvertures militaires</li>
+  </ul>
+  <li><a href="#rent-cuisine">Cuisine</a></li>
+  <ul>
+    <li>Four</li>
+    <li>Plaque de cuisson</li>
+    <li>Réfrigérateur</li>
+    <li>Évier double vasque</li>
+  </ul>
+  <li><a href="#rent-wc">Salle d'eau</a></li>
+  <ul>
+    <li>Double w.c.</li>
+    <li>Douches</li>
+    <li>Évier</li>
+    <li>Miroir</li>
+  </ul>
+</ul>
+
+<p>
+  Il sera de votre ressort de rendre le chalet le plus propre possible lors de votre départ, c’est pour cela que <b>nous vous demandons de bien vouloir apporter le matériel suivant</b> :
+</p>
+<ul>
+  <li>Serpillière</li>
+  <li>Produit pour le sol</li>
+  <li>Produit vaisselle</li>
+  <li>Linge vaisselle</li>
+  <li>Papier toilette</li>
+</ul>
+
+<p>
+  Si nous considérons que le chalet n'est pas rendu dans un état convenable (sol collant, tables sales, cuisine grasse, etc...), nous vous chargerons d'un supplément de frais de nettoyage.
+</p>
+
+<h2>Photos</h2>
+<div>
+  <h3 id="rent-halle"><a href="#top"></a>Salle principale</h3>
+
+  <div class="row">
+    <div class="col-7">
+      <div class="row p-3">
+        <img src="{% static 'photos/inside/halle0.jpg' %}" class="img-fluid" alt="image halle 0">
+      </div>
+      <div class="row p-3">
+        <img src="{% static 'photos/inside/halle1.jpg' %}" class="img-fluid" alt="image halle 1">
+      </div>
+    </div>
+    <div class="col-5 p-3">
+      <img src="{% static 'photos/inside/poele0.jpg' %}" class="img-fluid" alt="image poele 0">
+    </div>
+  </div>
+
+
+  <h3 id="rent-dortoires"><a href="#top"></a>Dortoir</h3>
+  <div class="row">
+    <div class="col-4 p-3">
+      <img src="{% static 'photos/inside/dortoir0.jpg' %}" class="img-fluid" alt="image dortoir 0">
+    </div>
+    <div class="col-8">
+      <div class="row p-3">
+        <img src="{% static 'photos/inside/dortoir1.jpg' %}" class="img-fluid" alt="image dortoir 1">
+      </div>
+      <div class="row p-3">
+        <img src="{% static 'photos/inside/dortoir2.jpg' %}" class="img-fluid" alt="image dortoire 2">
+      </div>
+    </div>
+  </div>
+
+  <h3 id="rent-cuisine"><a href="#top"></a>Cuisine</h3>
+  <div class="row">
+    <img src="{% static 'photos/inside/cuisine.jpg' %}" class="img-fluid" alt="image cuisine">
+  </div>
+
+
+  <h3 id="rent-wc"><a href="#top"></a>Salle d'eau</h3>
+  <div class="row">
+    <div class="col-5 p-3">
+      <img src="{% static 'photos/inside/wc2.jpg' %}" class="img-fluid" alt="image wc 2">
+    </div>
+    <div class="col-7">
+      <div class="row p-3">
+        <img src="{% static 'photos/inside/wc0.jpg' %}" class="img-fluid" alt="image wc 0">
+      </div>
+      <div class="row p-3">
+        <img src="{% static 'photos/inside/wc1.jpg' %}" class="img-fluid" alt="image wc 1">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
