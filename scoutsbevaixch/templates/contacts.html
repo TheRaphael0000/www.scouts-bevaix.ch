@@ -14,9 +14,11 @@
       {# <img src="..." class="card-img-top" alt="..."> #}
       <div class="card-body">
         <h5 class="card-title">{{ contact.titre }}</h5>
-        <p class="card-text">{{ contact.nom }}</p>
-        <p class="card-text">Email : <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
-        <p class="card-text">Téléphone : {{ contact.telephone }}</p>
+        <p class="card-text">
+          <i class="fas fa-user"></i> {{ contact.nom }}<br>
+          <i class="fas fa-envelope"></i> <a href="mailto:{{ contact.email }}">{{ contact.email }}</a><br>
+          <i class="fas fa-phone"></i> {{ contact.telephone }}<br>
+        <p class="card-text">
       </div>
     </div>
   </div>

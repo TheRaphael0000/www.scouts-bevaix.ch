@@ -7,21 +7,22 @@
 {% endblock %}
 
 {% block main %}
+
 <div class="row row-cols-md-4">
   {% for album in albums %}
   <div class="col mb-4">
-    <a href="/albums/{{ album.name }}/1">
-      <div class="card">
-        <img src="/thumbnail/{{ album.name }}/{{ album.cover }}" class="card-img-top easeload" onload="this.style.opacity=1">
-        <div class="card-body">
-          <h5 class="card-title">
+    <div class="card easeload">
+      <a href="/albums/{{ album.name }}/1">
+        <img src="/thumbnail/{{ album.name }}/{{ album.cover }}" class="card-img" onload="show_parent_parent(this);">
+        <div class="card-img-overlay d-flex align-items-end">
+          <h5 class="card-title bg-light p-2  text-center rounded border border-dark">
             {{ album.name }}
           </h5>
         </div>
-    </a>
+      </a>
+    </div>
   </div>
-</div>
-{% endfor %}
+  {% endfor %}
 </div>
 
 {% endblock %}

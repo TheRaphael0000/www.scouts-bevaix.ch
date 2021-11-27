@@ -11,8 +11,8 @@
 <div class="row row-cols-md-4">
   {% for image in images %}
   <div class="col mb-4">
-    <div class="card">
-      <img src="/thumbnail/{{ name }}/{{ image }}" class="card-img-top easeload" onload="this.style.opacity=1">
+    <div class="card easeload">
+      <img src="/thumbnail/{{ name }}/{{ image }}" class="card-img" onload="show_parent(this);">
     </div>
   </div>
   {% endfor %}
