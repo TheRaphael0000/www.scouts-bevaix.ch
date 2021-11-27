@@ -2,7 +2,10 @@
 {% load static %}
 
 {% block title %}Locations{% endblock %}
-{% block header %}Locations du châlet scout{% endblock %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="/">Accueil</a></li>
+<li class="breadcrumb-item active" aria-current="page">Locations</li>
+{% endblock %}
 
 {% block main %}
 <p class="text-danger">

@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
 {% block title %}Calendrier{% endblock %}
-{% block header %}Calendrier du groupe{% endblock %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="/">Accueil</a></li>
+<li class="breadcrumb-item active" aria-current="page">Calendrier</li>
+{% endblock %}
 
 {% block main %}
 <iframe src="https://calendar.google.com/calendar/embed?src=dHByaWlhNjBrZGpnMG5jNWIxdXZkOWEwbDRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&hl=fr&showTitle=0&showTz=0" width="100%" height="600px" frameborder="0" scrolling="no"></iframe>

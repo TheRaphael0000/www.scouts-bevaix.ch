@@ -2,7 +2,6 @@ config.py
 
 contacts_data.py
 imgs/
-thumbnails/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

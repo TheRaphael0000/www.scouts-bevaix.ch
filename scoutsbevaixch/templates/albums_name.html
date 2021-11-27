@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Albums{% endblock %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="/">Accueil</a></li>
+<li class="breadcrumb-item"><a href="/albums">Albums</a></li>
+<li class="breadcrumb-item active" aria-current="page">{{ name }}</li>
+{% endblock %}
+
+{% block main %}
+<div class="row row-cols-md-4">
+  {% for image in images %}
+  <div class="col mb-4">
+    <div class="card">
+      <img src="/thumbnail/{{ name }}/{{ image }}" class="card-img-top easeload" onload="this.style.opacity=1">
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
