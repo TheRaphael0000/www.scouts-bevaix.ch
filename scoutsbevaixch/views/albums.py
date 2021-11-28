@@ -67,6 +67,7 @@ def thumbnail(request, album, name):
 def image_to_response(im):
     format = im.format
     response = HttpResponse(content_type=f"image/{format}")
+    response["Cache-Control"] = "public, max-age=3600"
     im.save(response, format)
     return response
 
@@ -77,7 +78,7 @@ def get_image_path(album, name):
 
 def get_thumbnail_path(album, name):
     thumbnail_filename = hashlib.md5(
-        (album + name).encode('utf-8')).hexdigest()
+        (album + name).encode("utf-8")).hexdigest()
     return os.path.join(THUMB, thumbnail_filename)
 
 
