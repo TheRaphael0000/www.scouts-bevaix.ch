@@ -9,16 +9,18 @@
 
 {% block main %}
 
-<div class="row row-cols-md-4">
-  {% for image in images %}
-  <div class="col mb-4">
-    <div class="card easeload">
-      <a data-fancybox="gallery" href="/image/{{ name }}/{{ image }}">
-        <img src="/thumbnail/{{ name }}/{{ image }}" class="rounded card-img" onload="show_parent_parent(this);">
-      </a>
+<div class="container">
+  <div class="row">
+    {% for image in images %}
+    <div class="col col-6 col-sm-4 col-md-3 col-lg-2 mb-4">
+      <div class="card easeload">
+        <a data-fancybox="gallery" href="/image/{{ name }}/{{ image }}">
+          <img src="/thumbnail/{{ name }}/{{ image }}" class="rounded card-img" onload="show_parent_parent(this);">
+        </a>
+      </div>
     </div>
+    {% endfor %}
   </div>
-  {% endfor %}
 </div>
 
 <script>
@@ -52,45 +54,5 @@
     },
   });
 </script>
-
-
-<ul class="pagination justify-content-md-center">
-  {% if pagination.p_page %}
-  <li class="page-item">
-    <a class="page-link" href="/albums/{{ name }}/{{ pagination.p_page }}" aria-label="Previous">
-      <span aria-hidden="true">&laquo;</span>
-    </a>
-  </li>
-  {% else %}
-  <li class="page-item disabled">
-    <span aria-hidden="true" class="page-link">&laquo;</span>
-  </li>
-  {% endif %}
-
-  {% for page_i in pagination.page_range %}
-  {% if pagination.c_page != page_i %}
-  <li class="page-item"><a class="page-link" href="/albums/{{ name }}/{{ page_i }}">{{ page_i }}</a></li>
-  {% else %}
-  <li class="page-item active">
-    <span class="page-link">
-      {{ page_i }}
-      <span class="sr-only">(current)</span>
-    </span>
-  </li>
-  {% endif %}
-  {% endfor %}
-
-  {% if pagination.n_page %}
-  <li class="page-item">
-    <a class="page-link" href="/albums/{{ name }}/{{ pagination.n_page }}" aria-label="Previous">
-      <span aria-hidden="true">&raquo;</span>
-    </a>
-  </li>
-  {% else %}
-  <li class="page-item disabled">
-    <span aria-hidden="true" class="page-link">&raquo;</span>
-  </li>
-  {% endif %}
-</ul>
 
 {% endblock %}
