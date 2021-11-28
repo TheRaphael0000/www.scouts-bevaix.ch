@@ -41,6 +41,12 @@ def album(request, name, page):
         context = {
             "name": name,
             "images": p.page(page),
+            "pagination": {
+                "page_range": p.page_range,
+                "p_page": page - 1 if page > p.page_range[0] else False,
+                "c_page": page,
+                "n_page": page + 1 if page < p.page_range[-1] else False,
+            }
         }
     except EmptyPage:
         return redirect(f"/albums/{name}/1")
