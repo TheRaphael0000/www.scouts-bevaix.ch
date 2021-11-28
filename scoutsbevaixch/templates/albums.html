@@ -12,7 +12,7 @@
   {% for album in albums %}
   <div class="col mb-4">
     <div class="card easeload">
-      <a href="/albums/{{ album.name }}/1">
+      <a href="/albums/{{ album.name }}">
         <img src="/thumbnail/{{ album.name }}/{{ album.cover }}" class="card-img" onload="show_parent_parent(this);">
         <div class="card-img-overlay d-flex align-items-end">
           <h5 class="card-title bg-light p-2  text-center rounded border border-dark">

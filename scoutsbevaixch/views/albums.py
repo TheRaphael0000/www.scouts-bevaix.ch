@@ -7,14 +7,14 @@ import os
 
 
 IMG = "imgs"
-THUMB_SIZE = 300
+THUMB_SIZE = 200
 
 
-def albums(request, name=None, page=None):
+def albums(request, name=None):
     if name is None:
         return albums_list(request)
     else:
-        return album(request, name, page)
+        return album(request, name)
 
 
 def albums_list(request):
@@ -32,24 +32,13 @@ def albums_list(request):
     return render(request, "albums.html", context=context)
 
 
-def album(request, name, page):
+def album(request, name):
     images = os.listdir(os.path.join(IMG, name))
 
-    p = Paginator(images, 12)
-
-    try:
-        context = {
-            "name": name,
-            "images": p.page(page),
-            "pagination": {
-                "page_range": p.page_range,
-                "p_page": page - 1 if page > p.page_range[0] else False,
-                "c_page": page,
-                "n_page": page + 1 if page < p.page_range[-1] else False,
-            }
-        }
-    except EmptyPage:
-        return redirect(f"/albums/{name}/1")
+    context = {
+        "name": name,
+        "images": images,
+    }
 
     return render(request, "albums_name.html", context=context)
 

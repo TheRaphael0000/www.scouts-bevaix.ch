@@ -13,11 +13,46 @@
   {% for image in images %}
   <div class="col mb-4">
     <div class="card easeload">
-      <img src="/thumbnail/{{ name }}/{{ image }}" class="card-img" onload="show_parent(this);">
+      <a data-fancybox="gallery" href="/image/{{ name }}/{{ image }}">
+        <img src="/thumbnail/{{ name }}/{{ image }}" class="rounded card-img" onload="show_parent_parent(this);">
+      </a>
     </div>
   </div>
   {% endfor %}
 </div>
+
+<script>
+  Fancybox.bind('[data-fancybox="gallery"]', {
+    dragToClose: false,
+
+    Toolbar: false,
+    closeButton: "top",
+
+    Image: {
+      zoom: false,
+    },
+
+    on: {
+      initCarousel: (fancybox) => {
+        const slide = fancybox.Carousel.slides[fancybox.Carousel.page];
+
+        fancybox.$container.style.setProperty(
+          "--bg-image",
+          `url("${slide.$thumb.src}")`
+        );
+      },
+      "Carousel.change": (fancybox, carousel, to, from) => {
+        const slide = carousel.slides[to];
+
+        fancybox.$container.style.setProperty(
+          "--bg-image",
+          `url("${slide.$thumb.src}")`
+        );
+      },
+    },
+  });
+</script>
+
 
 <ul class="pagination justify-content-md-center">
   {% if pagination.p_page %}
