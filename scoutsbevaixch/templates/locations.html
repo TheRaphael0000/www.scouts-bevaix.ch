@@ -80,14 +80,20 @@
   <div class="row">
     <div class="col-7">
       <div class="row p-3">
-        <img src="{% static 'photos/inside/halle0.jpg' %}" class="img-fluid" alt="image halle 0">
+        <a data-fancybox="gallery" href="{% static 'photos/inside/halle0.jpg' %}">
+          <img src="{% static 'photos/inside/halle0.jpg' %}" class="img-fluid" alt="image halle 0">
+        </a>
       </div>
       <div class="row p-3">
-        <img src="{% static 'photos/inside/halle1.jpg' %}" class="img-fluid" alt="image halle 1">
+        <a data-fancybox="gallery" href="{% static 'photos/inside/halle1.jpg' %}">
+          <img src="{% static 'photos/inside/halle1.jpg' %}" class="img-fluid" alt="image halle 1">
+        </a>
       </div>
     </div>
     <div class="col-5 p-3">
-      <img src="{% static 'photos/inside/poele0.jpg' %}" class="img-fluid" alt="image poele 0">
+      <a data-fancybox="gallery" href="{% static 'photos/inside/poele0.jpg' %}">
+        <img src="{% static 'photos/inside/poele0.jpg' %}" class="img-fluid" alt="image poele 0">
+      </a>
     </div>
   </div>
 
@@ -95,37 +101,54 @@
   <h3 id="dortoires"><a href="#top"></a>Dortoir</h3>
   <div class="row">
     <div class="col-4 p-3">
-      <img src="{% static 'photos/inside/dortoir0.jpg' %}" class="img-fluid" alt="image dortoir 0">
+      <a data-fancybox="gallery" href="{% static 'photos/inside/dortoir0.jpg' %}">
+        <img src="{% static 'photos/inside/dortoir0.jpg' %}" class="img-fluid" alt="image dortoir 0">
+      </a>
     </div>
     <div class="col-8">
       <div class="row p-3">
-        <img src="{% static 'photos/inside/dortoir1.jpg' %}" class="img-fluid" alt="image dortoir 1">
+        <a data-fancybox="gallery" href="{% static 'photos/inside/dortoir1.jpg' %}">
+          <img src="{% static 'photos/inside/dortoir1.jpg' %}" class="img-fluid" alt="image dortoir 1">
+        </a>
       </div>
       <div class="row p-3">
-        <img src="{% static 'photos/inside/dortoir2.jpg' %}" class="img-fluid" alt="image dortoire 2">
+        <a data-fancybox="gallery" href="{% static 'photos/inside/dortoir2.jpg' %}">
+          <img src="{% static 'photos/inside/dortoir2.jpg' %}" class="img-fluid" alt="image dortoire 2">
+        </a>
       </div>
     </div>
   </div>
 
   <h3 id="cuisine"><a href="#top"></a>Cuisine</h3>
   <div class="row">
-    <img src="{% static 'photos/inside/cuisine.jpg' %}" class="img-fluid" alt="image cuisine">
+    <a data-fancybox="gallery" href="{% static 'photos/inside/cuisine.jpg' %}">
+      <img src="{% static 'photos/inside/cuisine.jpg' %}" class="img-fluid" alt="image cuisine">
+    </a>
   </div>
 
 
   <h3 id="wc"><a href="#top"></a>Salle d'eau</h3>
   <div class="row">
     <div class="col-5 p-3">
-      <img src="{% static 'photos/inside/wc2.jpg' %}" class="img-fluid" alt="image wc 2">
+      <a data-fancybox="gallery" href="{% static 'photos/inside/wc2.jpg' %}">
+        <img src="{% static 'photos/inside/wc2.jpg' %}" class="img-fluid" alt="image wc 2">
+      </a>
     </div>
     <div class="col-7">
       <div class="row p-3">
-        <img src="{% static 'photos/inside/wc0.jpg' %}" class="img-fluid" alt="image wc 0">
+        <a data-fancybox="gallery" href="{% static 'photos/inside/wc0.jpg' %}">
+          <img src="{% static 'photos/inside/wc0.jpg' %}" class="img-fluid" alt="image wc 0">
+        </a>
       </div>
       <div class="row p-3">
-        <img src="{% static 'photos/inside/wc1.jpg' %}" class="img-fluid" alt="image wc 1">
+        <a data-fancybox="gallery" href="{% static 'photos/inside/wc1.jpg' %}">
+          <img src="{% static 'photos/inside/wc1.jpg' %}" class="img-fluid" alt="image wc 1">
+        </a>
       </div>
     </div>
   </div>
 </div>
+
+<script src="{% static 'js/gallery.js' %}"></script>
+
 {% endblock %}

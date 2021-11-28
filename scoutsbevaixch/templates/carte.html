@@ -27,9 +27,19 @@
 
 <h2>Photos</h2>
 <div>
-  <img src="{% static 'photos/outside/panneauB1.jpg' %}" class="img-fluid p-3">
-  <img src="{% static 'photos/outside/cheminB5.jpg' %}" class="img-fluid p-3">
-  <img src="{% static 'photos/outside/feu0.jpg' %}" class="img-fluid p-3">
-  <img src="{% static 'photos/outside/cheminA0.jpg' %}" class="img-fluid p-3">
+  <a data-fancybox="gallery" href="{% static 'photos/outside/panneauB1.jpg' %}">
+    <img src="{% static 'photos/outside/panneauB1.jpg' %}" class="img-fluid p-3">
+  </a>
+  <a data-fancybox="gallery" href="{% static 'photos/outside/cheminB5.jpg' %}">
+    <img src="{% static 'photos/outside/cheminB5.jpg' %}" class="img-fluid p-3">
+  </a>
+  <a data-fancybox="gallery" href="{% static 'photos/outside/feu0.jpg' %}">
+    <img src="{% static 'photos/outside/feu0.jpg' %}" class="img-fluid p-3">
+  </a>
+  <a data-fancybox="gallery" href="{% static 'photos/outside/cheminA0.jpg' %}">
+    <img src="{% static 'photos/outside/cheminA0.jpg' %}" class="img-fluid p-3">
+  </a>
 </div>
+
+<script src="{% static 'js/gallery.js' %}"></script>
 {% endblock %}
