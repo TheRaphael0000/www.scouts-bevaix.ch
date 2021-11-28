@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Connexion{% endblock %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="/">Accueil</a></li>
+<li class="breadcrumb-item active" aria-current="page">Connexion</li>
+{% endblock %}
+
+{% block main %}
+{% if not auth %}
+<form class="form" action="/login" method="post">
+  {% csrf_token %}
+  <input type="password" class="form-control" name="pass" autofocus="autofocus">
+  <button type="submit" class="btn btn-primary mt-3">Connexion</button>
+</form>
+{% else %}
+<a href="/logoff"><button class="btn btn-primary">Déconnexion</button></a>
+{% endif %}
+{% endblock %}

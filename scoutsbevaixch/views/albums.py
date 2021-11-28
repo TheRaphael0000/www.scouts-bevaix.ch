@@ -10,8 +10,13 @@ from PIL import Image, ImageOps, UnidentifiedImageError
 
 IMG = "imgs"
 THUMB_SIZE = 175
-THUMB_ALGO = Image.LANCZOS # best quality for downscale : https://pillow.readthedocs.io/en/stable/handbook/concepts.html#concept-filters
+# best quality for downscale : https://pillow.readthedocs.io/en/stable/handbook/concepts.html#concept-filters
+THUMB_ALGO = Image.LANCZOS
 THUMB = tempfile.gettempdir()
+
+
+def can_view_album(request, name):
+    return name[0] != "_" or request.session["auth"]
 
 
 def albums(request, name=None):
@@ -27,8 +32,9 @@ def albums_list(request):
 
     l = []
     for name, cover in zip(_albums, covers):
-        l.append({"name": name, "cover": cover})
-
+        if can_view_album(request, name):
+            l.append({"name": name, "cover": cover})
+    l.sort(key=lambda x: x["name"])
     context = {
         "albums": l,
     }
@@ -38,6 +44,9 @@ def albums_list(request):
 
 def album(request, name):
     try:
+        if not can_view_album(request, name):
+            raise FileNotFoundError
+
         images = os.listdir(os.path.join(IMG, name))
     except FileNotFoundError:
         return HttpResponseNotFound(render(request, "404.html"))
@@ -52,6 +61,9 @@ def album(request, name):
 
 def image(request, album, name):
     try:
+        if not can_view_album(request, album):
+            raise FileNotFoundError
+
         return image_to_response(get_image(album, name))
     except (FileNotFoundError, UnidentifiedImageError) as e:
         return HttpResponseNotFound(render(request, "404.html"))
@@ -59,6 +71,9 @@ def image(request, album, name):
 
 def thumbnail(request, album, name):
     try:
+        if not can_view_album(request, album):
+            raise FileNotFoundError
+
         return image_to_response(get_thumbnail(album, name))
     except (FileNotFoundError, UnidentifiedImageError) as e:
         return HttpResponseNotFound(render(request, "404.html"))
