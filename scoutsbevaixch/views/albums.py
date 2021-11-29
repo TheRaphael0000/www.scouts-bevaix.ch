@@ -16,7 +16,18 @@ THUMB = tempfile.gettempdir()
 
 
 def can_view_album(request, name):
-    return name[0] != "_" or request.session["auth"]
+    return name[0] != "_" or request.session.get("auth", default=False)
+
+
+def get_valid_images(album):
+    files = os.listdir(os.path.join(IMG, album))
+    for f in files:
+        path = os.path.join(IMG, album, f)
+        try:
+            Image.open(path).close()
+        except (IsADirectoryError, UnidentifiedImageError, ValueError):
+            continue
+        yield f
 
 
 def albums(request, name=None):
@@ -27,17 +38,19 @@ def albums(request, name=None):
 
 
 def albums_list(request):
-    _albums = os.listdir(IMG)
-    covers = [os.listdir(os.path.join(IMG, album))[0] for album in _albums]
+    try:
+        _albums = next(os.walk(IMG))[1]
+    except StopIteration:
+        _albums = []
 
     l = []
-    for name, cover in zip(_albums, covers):
-        if can_view_album(request, name):
+    for name in _albums:
+        cover = next(get_valid_images(name), False)
+        if cover and can_view_album(request, name):
             l.append({"name": name, "cover": cover})
+
     l.sort(key=lambda x: x["name"])
-    context = {
-        "albums": l,
-    }
+    context = {"albums": l}
 
     return render(request, "albums.html", context=context)
 
@@ -47,7 +60,7 @@ def album(request, name):
         if not can_view_album(request, name):
             raise FileNotFoundError
 
-        images = os.listdir(os.path.join(IMG, name))
+        images = list(get_valid_images(name))
     except FileNotFoundError:
         return HttpResponseNotFound(render(request, "404.html"))
 
@@ -63,9 +76,8 @@ def image(request, album, name):
     try:
         if not can_view_album(request, album):
             raise FileNotFoundError
-
         return image_to_response(get_image(album, name))
-    except (FileNotFoundError, UnidentifiedImageError) as e:
+    except (FileNotFoundError, UnidentifiedImageError, IsADirectoryError):
         return HttpResponseNotFound(render(request, "404.html"))
 
 
@@ -73,9 +85,8 @@ def thumbnail(request, album, name):
     try:
         if not can_view_album(request, album):
             raise FileNotFoundError
-
         return image_to_response(get_thumbnail(album, name))
-    except (FileNotFoundError, UnidentifiedImageError) as e:
+    except (FileNotFoundError, UnidentifiedImageError, IsADirectoryError):
         return HttpResponseNotFound(render(request, "404.html"))
 
 

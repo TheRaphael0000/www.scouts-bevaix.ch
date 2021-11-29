@@ -24,6 +24,9 @@
       </div>
     </div>
     {% endfor %}
+    {% if albums|length <= 0 %}
+    Pas d'albums disponible
+    {% endif %}
   </div>
 </div>
 

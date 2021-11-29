@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 
 def log(request):
     context = {
-        "auth": request.session["auth"]
+        "auth": request.session.get("auth", default=False)
     }
     return render(request, "log.html", context=context)
 

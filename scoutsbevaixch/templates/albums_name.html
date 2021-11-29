@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Albums{% endblock %}
 {% block breadcrumb %}
@@ -20,6 +21,9 @@
       </div>
     </div>
     {% endfor %}
+    {% if images|length <= 0 %}
+    Pas d'images disponible
+    {% endif %}
   </div>
 </div>
 
