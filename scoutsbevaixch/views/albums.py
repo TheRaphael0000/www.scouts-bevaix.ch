@@ -2,8 +2,8 @@ import tempfile
 import hashlib
 import os
 
-from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseNotFound, FileResponse
+from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseNotFound
 
 from PIL import Image, ImageOps, UnidentifiedImageError
 
@@ -34,7 +34,10 @@ def albums(request, name=None):
     if name is None:
         return albums_list(request)
     else:
-        return album(request, name)
+        try:
+            return album(request, name)
+        except FileNotFoundError:
+            return HttpResponseNotFound(render(request, "404.html"))
 
 
 def albums_list(request):
@@ -42,33 +45,21 @@ def albums_list(request):
         _albums = next(os.walk(IMG))[1]
     except StopIteration:
         _albums = []
-
-    l = []
+    _albums_list = []
     for name in _albums:
         cover = next(get_valid_images(name), False)
         if cover and can_view_album(request, name):
-            l.append({"name": name, "cover": cover})
-
-    l.sort(key=lambda x: x["name"])
-    context = {"albums": l}
-
+            _albums_list.append({"name": name, "cover": cover})
+    _albums_list.sort(key=lambda x: x["name"])
+    context = {"albums": _albums_list}
     return render(request, "albums.html", context=context)
 
 
 def album(request, name):
-    try:
-        if not can_view_album(request, name):
-            raise FileNotFoundError
-
-        images = list(get_valid_images(name))
-    except FileNotFoundError:
+    images = list(get_valid_images(name))
+    if not can_view_album(request, name) or len(images) <= 0:
         return HttpResponseNotFound(render(request, "404.html"))
-
-    context = {
-        "name": name,
-        "images": images,
-    }
-
+    context = {"name": name, "images": images}
     return render(request, "albums_name.html", context=context)
 
 
@@ -77,7 +68,7 @@ def image(request, album, name):
         if not can_view_album(request, album):
             raise FileNotFoundError
         return image_to_response(get_image(album, name))
-    except (FileNotFoundError, UnidentifiedImageError, IsADirectoryError):
+    except FileNotFoundError:
         return HttpResponseNotFound(render(request, "404.html"))
 
 
@@ -86,7 +77,7 @@ def thumbnail(request, album, name):
         if not can_view_album(request, album):
             raise FileNotFoundError
         return image_to_response(get_thumbnail(album, name))
-    except (FileNotFoundError, UnidentifiedImageError, IsADirectoryError):
+    except FileNotFoundError:
         return HttpResponseNotFound(render(request, "404.html"))
 
 
@@ -96,10 +87,6 @@ def image_to_response(im):
     response["Cache-Control"] = "public, max-age=3600"
     im.save(response, format)
     return response
-
-
-def get_image_path(album, name):
-    return os.path.join(IMG, album, name)
 
 
 def get_thumbnail_path(album, name):
@@ -126,5 +113,5 @@ def get_thumbnail(album, name):
 
 
 def get_image(album, name):
-    image_path = get_image_path(album, name)
+    image_path = os.path.join(IMG, album, name)
     return Image.open(image_path)
