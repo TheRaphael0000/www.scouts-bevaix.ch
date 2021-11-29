@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect
+from django.conf import settings
 
 
 def log(request):
@@ -11,7 +12,7 @@ def log(request):
 
 def login(request):
     args = dict(request.POST)
-    if "pass" in args and args["pass"][0] == "123":
+    if "pass" in args and args["pass"][0] == settings.PASSWORD:
         request.session["auth"] = True
     return redirect("log")
 

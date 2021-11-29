@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.conf import settings
 
 
 def accueil(request):
@@ -23,3 +24,7 @@ def locations(request):
 
 def carte(request):
     return render(request, "carte.html")
+
+
+def contacts(request):
+    return render(request, "contacts.html", context={"contacts": settings.CONTACTS})

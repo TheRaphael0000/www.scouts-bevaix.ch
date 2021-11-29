@@ -2,17 +2,11 @@ import tempfile
 import hashlib
 import os
 
+from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
 
 from PIL import Image, ImageOps, UnidentifiedImageError
-
-
-IMG = "imgs"
-THUMB_SIZE = 175
-# best quality for downscale : https://pillow.readthedocs.io/en/stable/handbook/concepts.html#concept-filters
-THUMB_ALGO = Image.LANCZOS
-THUMB = tempfile.gettempdir()
 
 
 def can_view_album(request, name):
@@ -20,9 +14,9 @@ def can_view_album(request, name):
 
 
 def get_valid_images(album):
-    files = os.listdir(os.path.join(IMG, album))
+    files = os.listdir(os.path.join(settings.IMG, album))
     for f in files:
-        path = os.path.join(IMG, album, f)
+        path = os.path.join(settings.IMG, album, f)
         try:
             Image.open(path).close()
         except (IsADirectoryError, UnidentifiedImageError, ValueError):
@@ -42,7 +36,7 @@ def albums(request, name=None):
 
 def albums_list(request):
     try:
-        _albums = next(os.walk(IMG))[1]
+        _albums = next(os.walk(settings.IMG))[1]
     except StopIteration:
         _albums = []
     _albums_list = []
@@ -84,7 +78,7 @@ def thumbnail(request, album, name):
 def image_to_response(im):
     format = im.format
     response = HttpResponse(content_type=f"image/{format}")
-    response["Cache-Control"] = "public, max-age=3600"
+    response["Cache-Control"] = f"public, max-age={settings.MAX_AGE}"
     im.save(response, format)
     return response
 
@@ -92,7 +86,7 @@ def image_to_response(im):
 def get_thumbnail_path(album, name):
     thumbnail_filename = hashlib.md5(
         (album + name).encode("utf-8")).hexdigest()
-    return os.path.join(THUMB, thumbnail_filename)
+    return os.path.join(settings.THUMB, thumbnail_filename)
 
 
 def get_thumbnail(album, name):
@@ -102,7 +96,8 @@ def get_thumbnail(album, name):
         return im
     im = get_image(album, name)
     format = im.format
-    im = ImageOps.fit(im, (THUMB_SIZE, THUMB_SIZE), THUMB_ALGO)
+    size = (settings.THUMB_SIZE, settings.THUMB_SIZE)
+    im = ImageOps.fit(im, size, settings.THUMB_ALGO)
     try:
         im.save(thumbnail_path, format=format)
         # restore format after image fit
@@ -113,5 +108,5 @@ def get_thumbnail(album, name):
 
 
 def get_image(album, name):
-    image_path = os.path.join(IMG, album, name)
+    image_path = os.path.join(settings.IMG, album, name)
     return Image.open(image_path)
