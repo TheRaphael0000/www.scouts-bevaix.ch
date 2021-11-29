@@ -11,5 +11,5 @@ from .static_views import scoutisme
 from .static_views import actualites
 from .static_views import calendrier
 from .static_views import locations
-from .static_views import carte
+from .static_views import emplacement
 from .static_views import contacts

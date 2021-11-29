@@ -22,8 +22,8 @@ def locations(request):
     return render(request, "locations.html")
 
 
-def carte(request):
-    return render(request, "carte.html")
+def emplacement(request):
+    return render(request, "emplacement.html")
 
 
 def contacts(request):
