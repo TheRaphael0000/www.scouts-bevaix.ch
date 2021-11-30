@@ -1,5 +1,41 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  font-size: 1.05em;
+}
+
+.bg-image {
+  position: fixed;
+  background-image: url("/static/photos/outside/panorama0.jpg");
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  filter: blur(5px);
+  transform: scale(1.05);
+  opacity: 0.8;
+  z-index: -1;
+}
+
+body>.container {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 20px;
+  border-radius: 0px 0px 40px 40px;
+}
+
+header {
+  border-bottom: 2px solid;
+}
+
 a:hover {
   text-decoration: underline;
+}
+
+.nav-link:hover {
+  text-decoration: none !important;
 }
 
 a {
@@ -12,85 +48,4 @@ a {
   -moz-transition: all 1s ease;
   -ms-transition: all 1s ease;
   -o-transition: all 1s ease;
-}
-
-a[data-fancybox] img {
-  cursor: zoom-in;
-}
-
-.fancybox__backdrop::after {
-  content: "";
-  position: absolute;
-  width: 10%;
-  height: 10%;
-  filter: blur(2px);
-  left: 50%;
-  top: 50%;
-  transform: scale(11);
-  opacity: 0.3;
-  background-image: var(--bg-image);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-
-.fancybox__container {
-  --fancybox-bg: #000;
-
-  --fancybox-thumbs-width: 48px;
-  --fancybox-thumbs-ratio: 1;
-
-  --carousel-button-bg: rgb(91 78 76 / 74%);
-
-  --carousel-button-svg-width: 24px;
-  --carousel-button-svg-height: 24px;
-
-  --carousel-button-svg-stroke-width: 2.5;
-}
-
-.fancybox__nav {
-  --carousel-button-svg-width: 24px;
-  --carousel-button-svg-height: 24px;
-}
-
-.fancybox__nav .carousel__button.is-prev {
-  left: 20px;
-}
-
-.fancybox__nav .carousel__button.is-next {
-  right: 20px;
-}
-
-.carousel__button.is-close {
-  right: auto;
-  top: 20px;
-  left: 20px;
-}
-
-.fancybox__slide {
-  padding: 8px 88px;
-}
-
-/* Thumbnails */
-.fancybox__thumbs .carousel__slide {
-  padding: 8px 8px 16px 8px;
-}
-
-.is-nav-selected::after {
-  display: none;
-}
-
-.fancybox__thumb {
-  border-radius: 6px;
-  opacity: 0.4;
-}
-
-.fancybox__thumb:hover,
-.is-nav-selected .fancybox__thumb {
-  border-radius: 6px;
-  opacity: 1;
-}
-
-.is-nav-selected .fancybox__thumb::after {
-  display: none;
 }
