@@ -1,0 +1,12 @@
+[Unit]
+Description=Scouts Bevaix Gunicorn
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/scoutsbevaix
+ExecStart=/usr/bin/python /usr/local/bin/gunicorn --bind unix:/tmp/scoutsbevaix_gunicorn.sock -m 007 scoutsbevaix.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

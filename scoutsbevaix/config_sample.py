@@ -1,7 +1,11 @@
 import tempfile
 from PIL import Image
 
+# Django Settings
+DEBUG = True
 SECRET_KEY = ""
+ALLOWED_HOSTS = []
+
 # ALBUM
 IMG = "imgs"
 THUMB_SIZE = 175
