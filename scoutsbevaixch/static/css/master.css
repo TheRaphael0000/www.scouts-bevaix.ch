@@ -3,6 +3,7 @@ html, body {
   height: 100%;
   padding: 0;
   font-size: 1.05em;
+  scroll-behavior: smooth;
 }
 
 .bg-image {
@@ -44,8 +45,15 @@ a {
 
 .easeload {
   opacity: 0;
-  -webkit-transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  -ms-transition: all 1s ease;
-  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+.skip_nav {
+  position: absolute;
+  transform: translateY(-120%);
+}
+
+.skip_nav:focus {
+  transform: translateY(0);
+  transition: all 150ms linear;
 }

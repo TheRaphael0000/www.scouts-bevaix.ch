@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from fabric import Connection
 
 c = Connection(host="scouts-bevaix.ch", user="root", port=22)
