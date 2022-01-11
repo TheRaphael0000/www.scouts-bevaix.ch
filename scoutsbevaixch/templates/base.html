@@ -41,11 +41,11 @@
 
 <body>
   <a href="##" class="skip_nav bg-light border-1 py-2 px-3">Passer le menu</a>
-  <div class="bg-image"></div>
+  <div class="bg_image"></div>
 
   <div class="container">
     <header class="navbar navbar-expand-lg navbar-light py-3 mb-4 border-bottom border-secondary">
-      <a href="." class="navbar-brand">
+      <a href="{% url 'accueil' %}" class="navbar-brand">
         <img src="{% static 'logos/Logo_Abbaye_100.png' %}" class="img-fluid">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarItems" aria-controls="navbarItems" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,13 +54,13 @@
 
       <div class="collapse navbar-collapse" id="navbarItems">
         <ul class="navbar-nav mx-3 mt-2 mt-lg-0">
-          <li class="nav-item"><a accesskey="1" href="/" class="nav-link">Accueil</a></li>
-          <li class="nav-item"><a accesskey="2" href="/scoutisme" class="nav-link">Scoutisme</a></li>
-          <li class="nav-item"><a accesskey="3" href="/calendrier" class="nav-link">Calendrier</a></li>
-          <li class="nav-item"><a accesskey="4" href="/albums" class="nav-link">Albums</a></li>
-          <li class="nav-item"><a accesskey="5" href="/locations" class="nav-link">Locations</a></li>
-          <li class="nav-item"><a accesskey="6" href="/emplacement" class="nav-link">Emplacement</a></li>
-          <li class="nav-item"><a accesskey="7" href="/contacts" class="nav-link">Contacts</a></li>
+          <li class="nav-item"><a accesskey="1" href="{% url 'accueil' %}" class="nav-link">Accueil</a></li>
+          <li class="nav-item"><a accesskey="2" href="{% url 'scoutisme' %}" class="nav-link">Scoutisme</a></li>
+          <li class="nav-item"><a accesskey="3" href="{% url 'calendrier' %}" class="nav-link">Calendrier</a></li>
+          <li class="nav-item"><a accesskey="4" href="{% url 'albums' %}" class="nav-link">Albums</a></li>
+          <li class="nav-item"><a accesskey="5" href="{% url 'locations' %}" class="nav-link">Locations</a></li>
+          <li class="nav-item"><a accesskey="6" href="{% url 'emplacement' %}" class="nav-link">Emplacement</a></li>
+          <li class="nav-item"><a accesskey="7" href="{% url 'contacts' %}" class="nav-link">Contacts</a></li>
         </ul>
       </div>
     </header>
@@ -85,7 +85,7 @@
       <a class="px-2" style="color:#171515;" accesskey="g" href="https://github.com/TheRaphael0000/www.scouts-bevaix.ch">
         <i class="fab fa-github"></i>
       </a>
-      <a class="px-2" style="color:#82C91E;" accesskey="l" href="/log">
+      <a class="px-2" style="color:#82C91E;" accesskey="l" href="{% url 'log' %}">
         <i class="fas fa-tree"></i>
       </a>
     </footer>

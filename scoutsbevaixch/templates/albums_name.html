@@ -3,8 +3,8 @@
 
 {% block title %}Albums{% endblock %}
 {% block breadcrumb %}
-<li class="breadcrumb-item"><a href="/">Accueil</a></li>
-<li class="breadcrumb-item"><a href="/albums">Albums</a></li>
+<li class="breadcrumb-item"><a href="{% url 'accueil' %}">Accueil</a></li>
+<li class="breadcrumb-item"><a href="{% url 'albums' %}">Albums</a></li>
 <li class="breadcrumb-item active" aria-current="page">{{ name }}</li>
 {% endblock %}
 
@@ -14,9 +14,9 @@
   <div class="row">
     {% for image in images %}
     <div class="col col-6 col-sm-4 col-md-3 col-lg-2 mb-4">
-      <div class="card easeload">
-        <a data-fancybox="gallery" href="/image/{{ name }}/{{ image }}">
-          <img src="/thumbnail/{{ name }}/{{ image }}" class="rounded card-img" onload="show_parent_parent(this);">
+      <div class="card ease_load">
+        <a data-fancybox="gallery" href="{% url 'image' name image %}">
+          <img src="{% url 'thumbnail' name image %}" class="rounded card-img" onload="show_parent_parent(this);">
         </a>
       </div>
     </div>
