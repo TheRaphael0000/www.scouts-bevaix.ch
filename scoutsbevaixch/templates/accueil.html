@@ -7,18 +7,18 @@
 {% endblock %}
 
 {% block main %}
-<div>
-  <p>
-    Tu as entre 6 et 15 ans ? Tu aimes partir à l'aventure ?
-  </p>
-  <p>
-    Alors passe un après-midi, avec les scouts de l'Abbaye
-  </p>
-  <p>
-    La journée a lieu au local des scouts de Bevaix (à côté du stand de tir), de 14h00 à 17h00
-  </p>
-  <p>
-    Pour plus d'infos renseignez-vous dans les rubriques <a href="{% url 'scoutisme' %}">scoutisme</a>, <a href="{% url 'emplacement' %}">emplacement</a> et <a href="{% url 'contacts' %}">contact</a>.
-  </p>
-</div>
+<p>
+  Tu as plus de 7 ans ? Tu aimes partir à l'aventure ?
+</p>
+<p>
+  Alors passe un après-midi, avec les scouts de l'Abbaye.
+</p>
+<p>
+  Nous nous réunissons les samedis après midi entre 14h00 à 17h00. Au chalet des scouts de Bevaix (à côté du stand de tir).
+  Tu peux te renseignez dans la rubrique <a href="{% url 'calendrier' %}">calendrier</a> pour savoir si il y a une séance ce samedi.
+  En cas de doute, tu peux nous contacter, voir rubrique <a href="{% url 'contacts' %}">contacts</a>
+</p>
+<p>
+  Pour plus d'infos sur le scoutisme en général, renseigne-toi dans notre rubrique sur le <a href="{% url 'scoutisme' %}">scoutisme</a>.
+</p>
 {% endblock %}

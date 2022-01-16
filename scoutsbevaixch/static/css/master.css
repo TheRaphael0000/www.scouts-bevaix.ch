@@ -2,7 +2,7 @@ html, body {
   width: 100%;
   height: 100%;
   padding: 0;
-  font-size: 1.05em;
+  font-size: 1.06em;
   scroll-behavior: smooth;
 }
 
@@ -29,6 +29,18 @@ body>.container {
 
 header {
   border-bottom: 2px solid;
+  font-size: 1.1em;
+}
+
+.nav-link {
+  font-weight: 500;
+  color: rgb(0, 0, 0) !important;
+}
+
+.nav-link:hover {
+  color: rgba(0, 0, 0, 0.4) !important;
+  transition: 200ms;
+  text-decoration: none !important;
 }
 
 a:hover {
