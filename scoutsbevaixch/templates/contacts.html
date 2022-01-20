@@ -13,11 +13,22 @@
     <div class="card">
       {# <img src="..." class="card-img-top" alt="..."> #}
       <div class="card-body">
+        {% if contact.titre %}
         <h5 class="card-title">{{ contact.titre }}</h5>
+        {% endif %}
         <p class="card-text">
+          {% if contact.other %}
+          <h6 class="text-danger">{{ contact.other }}</h5>
+          {% endif %}
+          {% if contact.nom %}
           <i class="fas fa-user"></i> {{ contact.nom }}<br>
+          {% endif %}
+          {% if contact.email %}
           <i class="fas fa-envelope"></i> <a href="mailto:{{ contact.email }}">{{ contact.email }}</a><br>
+          {% endif %}
+          {% if contact.telephone %}
           <i class="fas fa-phone"></i> {{ contact.telephone }}<br>
+          {% endif %}
         <p class="card-text">
       </div>
     </div>
