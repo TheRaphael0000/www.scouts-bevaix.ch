@@ -15,9 +15,9 @@ urlpatterns = [
     path('calendrier', views.calendrier, name='calendrier'),
 
     path('albums', views.albums, name='albums'),
-    path('albums/<str:name>', views.albums, name='albums'),
-    path('image/<str:album>/<str:name>', views.image, name='image'),
-    path('thumbnail/<str:album>/<str:name>',
+    path('albums/<str:name>', views.albums_name, name='albums'),
+    path('image/<str:album>/<str:privacy>/<str:name>', views.image, name='image'),
+    path('thumbnail/<str:album>/<str:privacy>/<str:name>',
          views.thumbnail, name='thumbnail'),
 
     path('locations', views.locations, name='locations'),

@@ -65,3 +65,7 @@ a {
   transform: translateY(0);
   transition: all 150ms linear;
 }
+
+.black_shadow {
+  text-shadow: 1px 1px 20px black, 1px -1px 20px black, -1px 1px 20px black, -1px -1px 20px black, 0px 1px 20px black, 1px 0px 20px black, 0px -1px 20px black, -1px 0px 20px black;
+}

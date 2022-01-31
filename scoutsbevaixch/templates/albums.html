@@ -10,21 +10,21 @@
 
 <div class="container">
   <div class="row">
-    {% for album in albums %}
+    {% for card in cards %}
     <div class="col col-6 col-sm-4 col-md-3 col-lg-2 mb-4">
       <div class="card ease_load">
-        <a href="{% url 'albums' album.name %}">
-          <img src="{% url 'thumbnail' album.name album.cover %}" class="card-img" onload="show_parent_parent(this);">
-          <div class="card-img-overlay d-flex align-items-end">
-            <h5 class="card-title bg-light p-2  text-center rounded border border-dark">
-              {{ album.name }}
-            </h5>
+        <a href="{% url 'albums' card.album %}">
+          <img src="{% url 'thumbnail' card.album card.privacy card.name %}" class="card-img" onload="show_parent_parent(this);">
+          <div class="card-img-overlay d-flex align-items-end p-1">
+            <p class="card-title p-2 w-100 text-center text-light black_shadow">
+              {{ card.album }}
+            </p>
           </div>
         </a>
       </div>
     </div>
     {% endfor %}
-    {% if albums|length <= 0 %}
+    {% if cards|length <= 0 %}
     Pas d'albums disponible
     {% endif %}
   </div>

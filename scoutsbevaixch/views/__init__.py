@@ -1,4 +1,5 @@
 from .albums import albums
+from .albums import albums_name
 from .albums import image
 from .albums import thumbnail
 

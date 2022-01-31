@@ -1,6 +1,8 @@
 import tempfile
 import hashlib
 import os
+from pathlib import Path
+from dataclasses import dataclass
 
 from django.conf import settings
 from django.shortcuts import render
@@ -9,69 +11,98 @@ from django.http import HttpResponse, HttpResponseNotFound
 from PIL import Image, ImageOps, UnidentifiedImageError
 
 
-def can_view_album(request, name):
-    return name[0] != "_" or request.session.get("auth", default=False)
+@dataclass
+class ImageFile():
+    album: str
+    privacy: str
+    name: str
+
+    def check_rights(self, request):
+        if self.privacy != "public" and not can_view_private(request):
+            raise FileNotFoundError
+
+    def path(self):
+        return str(settings.IMG / Path(self.album) / Path(self.privacy) / Path(self.name))
 
 
-def get_valid_images(album):
-    files = os.listdir(os.path.join(settings.IMG, album))
-    for f in files:
-        path = os.path.join(settings.IMG, album, f)
+
+def can_view_private(request):
+    return request.session.get("auth", default=False)
+
+
+def get_valid_images(request, album):
+    files = []
+
+    def add_images(privacy):
+        path = settings.IMG / Path(album) / Path(privacy)
         try:
-            Image.open(path).close()
-        except (IsADirectoryError, UnidentifiedImageError, ValueError):
-            continue
-        yield f
-
-
-def albums(request, name=None):
-    if name is None:
-        return albums_list(request)
-    else:
-        try:
-            return album(request, name)
+            for name in os.listdir(path):
+                image_file = ImageFile(album, privacy, name)
+                files.append(image_file)
         except FileNotFoundError:
-            return HttpResponseNotFound(render(request, "404.html"))
+            pass
+
+    add_images("public")
+    if can_view_private(request):
+        add_images("private")
+
+    files.sort(key=lambda x: x.name)
+
+    if not files:
+        raise FileNotFoundError
+
+    for file in files:
+        try:
+            file.check_rights(request)
+            Image.open(file.path()).close()
+        except (FileNotFoundError, IsADirectoryError, UnidentifiedImageError, ValueError):
+            continue
+        yield file
 
 
-def albums_list(request):
+def albums(request):
     try:
         _albums = next(os.walk(settings.IMG))[1]
     except StopIteration:
         _albums = []
-    _albums_list = []
+    cards = []
     for name in _albums:
-        cover = next(get_valid_images(name), False)
-        if cover and can_view_album(request, name):
-            _albums_list.append({"name": name, "cover": cover})
-    _albums_list.sort(key=lambda x: x["name"])
-    context = {"albums": _albums_list}
+        try:
+            card = next(get_valid_images(request, name), False)
+        except FileNotFoundError:
+            continue
+        cards.append(card)
+    cards.sort(key=lambda x: x.album)
+    context = {"cards": cards}
     return render(request, "albums.html", context=context)
 
 
-def album(request, name):
-    images = list(get_valid_images(name))
-    if not can_view_album(request, name) or len(images) <= 0:
-        return HttpResponseNotFound(render(request, "404.html"))
-    context = {"name": name, "images": images}
-    return render(request, "albums_name.html", context=context)
-
-
-def image(request, album, name):
+def albums_name(request, name):
     try:
-        if not can_view_album(request, album):
-            raise FileNotFoundError
-        return image_to_response(get_image(album, name))
+        cards = list(get_valid_images(request, name))
+        context = {"cards": cards, "name": name }
+        return render(request, "albums_name.html", context=context)
     except FileNotFoundError:
         return HttpResponseNotFound(render(request, "404.html"))
 
 
-def thumbnail(request, album, name):
+def image(request, album, privacy, name):
     try:
-        if not can_view_album(request, album):
-            raise FileNotFoundError
-        return image_to_response(get_thumbnail(album, name))
+        image_file = ImageFile(album, privacy, name)
+        image_file.check_rights(request)
+        image = get_image(image_file)
+        return image_to_response(image)
     except FileNotFoundError:
+        return HttpResponseNotFound(render(request, "404.html"))
+
+
+def thumbnail(request, album, privacy, name):
+    try:
+        image_file = ImageFile(album, privacy, name)
+        image_file.check_rights(request)
+        thumbnail = get_thumbnail(image_file)
+        return image_to_response(thumbnail)
+    except FileNotFoundError as e:
         return HttpResponseNotFound(render(request, "404.html"))
 
 
@@ -83,18 +114,19 @@ def image_to_response(im):
     return response
 
 
-def get_thumbnail_path(album, name):
-    thumbnail_filename = hashlib.md5(
-        (album + name).encode("utf-8")).hexdigest()
-    return os.path.join(settings.THUMB, thumbnail_filename)
+def get_thumbnail_path(image_file):
+    path = (image_file.album + image_file.privacy +
+            image_file.name).encode("utf-8")
+    thumbnail_filename = hashlib.md5(path).hexdigest()
+    return settings.THUMB / Path(thumbnail_filename)
 
 
-def get_thumbnail(album, name):
-    thumbnail_path = get_thumbnail_path(album, name)
+def get_thumbnail(image_file):
+    thumbnail_path = get_thumbnail_path(image_file)
     if os.path.exists(thumbnail_path):
         im = Image.open(thumbnail_path)
         return im
-    im = get_image(album, name)
+    im = get_image(image_file)
     format = im.format
     size = (settings.THUMB_SIZE, settings.THUMB_SIZE)
     im = ImageOps.fit(im, size, settings.THUMB_ALGO)
@@ -107,6 +139,5 @@ def get_thumbnail(album, name):
     return im
 
 
-def get_image(album, name):
-    image_path = os.path.join(settings.IMG, album, name)
-    return Image.open(image_path)
+def get_image(image_file):
+    return Image.open(image_file.path())
