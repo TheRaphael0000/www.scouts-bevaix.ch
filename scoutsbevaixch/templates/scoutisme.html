@@ -8,7 +8,12 @@
 
 {% block main %}
 
-<h1>Scoutisme Suisse</h1>
+<div class="h2">Sommaire</div>
+
+<div id="toc" class="p-4">
+</div>
+
+<h2 id="scoutisme-suisse">Scoutisme Suisse</h2>
 
 <cite>
   Le scoutisme est fait pour que les enfants s’amusent et vivent dans la nature.
@@ -40,7 +45,7 @@
 
 </p>
 
-<h2>Le groupe Scout de l'Abbaye</h2>
+<h2 id="groupe-abbaye">Le groupe Scout de l'Abbaye</h2>
 
 <p>
   Le groupe scout de l'Abbaye de Bevaix a été crée en 1921 (et oui, notre groupe est centenaire), c'est l'un des plus vieux groupe scout du canton de Neuchâtel.
@@ -59,13 +64,13 @@
   Notre foulard est rouge et noir avec un carré violet à l'extrémité.
 </p>
 
-<h2>Les branches</h2>
+<h2 id="branches">Les branches</h2>
 <p>
   Dans notre groupe scouts et dans la plus part des groupes scouts Suisse, les jeunes sont réparties dans 4 tranches d'âges appelé branches : Les Louveteaux, les Éclaireurs, les Pionniers et les Chefs.
 </p>
 
 
-<h3><i class="fas fa-tshirt" style="color:#007ca1;"></i> Louveteau / Louvette (7-11 ans)</h3>
+<h3 id="louveteaux">Louveteau / Louvette (7-11 ans) <i class="fas fa-tshirt" style="color:#007ca1;"></i></h3>
 <p>
   Par petit groupes appelé sizaines, les Louveteaux jouent, font des bricolages, chantent, découvrent la nature et écoutent des histoires.
 </p>
@@ -79,7 +84,7 @@
   <cite>- De notre mieux !</cite>
 </p>
 
-<h3><i class="fas fa-tshirt" style="color:#bb8837;"></i> Éclaireur / Éclaireuse (11-15 ans)</h3>
+<h3 id="eclaireurs">Éclaireur / Éclaireuse (11-15 ans) <i class="fas fa-tshirt" style="color:#bb8837;"></i></h3>
 <p>
   Les Éclaireurs sont regroupé par petit groupes appellé partouilles.
   Les patrouilles comporte des éclaireurs d'expérience différentes (des plus expérimentés avec des moins expérimentés)
@@ -101,7 +106,7 @@
 </p>
 
 
-<h3><i class="fas fa-tshirt" style="color:#d10000;"></i> Pionnier / Cordée (15-18 ans)</h3>
+<h3 id="pionniers">Pionnier / Cordée (15-18 ans) <i class="fas fa-tshirt" style="color:#d10000;"></i></h3>
 <p>
   Durant l'année, les Pionnier sont libre d'organiser des activités scouts qui leur plaisent.
   Ils se répartissent leur tâches et chaqu'un est responsable au bon déroulement de leur activité.
@@ -119,7 +124,7 @@
   <cite>- S'engager !</cite>
 </p>
 
-<h3><i class="fas fa-tshirt" style="color:#005a49;"></i> Chef / Cheftaine (≥18 ans)</h3>
+<h3 id="chefs">Chef / Cheftaine (≥18 ans) <i class="fas fa-tshirt" style="color:#005a49;"></i></h3>
 
 <p>
   Les chef et cheftaine s'occupent de préparer et d'animer les activités pour les sizaines, patrouilles.
@@ -134,14 +139,14 @@
   <cite>- Servir !</cite>
 </p>
 
-<h2>Le matériel</h2>
+<h2 id="materiel">Le matériel</h2>
 
 <p>
   Pas de matériel n'est nécessaire dans l'absolu lors des séances du samedi.
   Mais tout bon scout a toujours avec lui un PA-CRA-FI-COU (PApier, CRAyon, FIcelle, COUteau).
 </p>
 
-<h2>Les camps et les weekend</h2>
+<h2 id="camps-et-weekend">Les camps et les weekends</h2>
 
 <p>
   Chaque année, nous organisons un camp d'été qui se déroule sur 1 à 2 semaines durant les vacances scolaire.
@@ -152,7 +157,7 @@
   Des weekends scouts sont également proposés durant l'année pour, par example : Pâques, Halloween, Noël.
 </p>
 
-<h2>Les totems</h2>
+<h2 id="totems">Les totems</h2>
 
 <p>
   Une fois qu'un scout a un niveau d'ancienneté assez élevé, il se fait totémiser et reçoit un animal totem et un adjectif lui correspondant.
@@ -169,7 +174,7 @@
 </p>
 
 
-<h2>Histoire du scoutisme, en bref</h2>
+<h2 id="histoire">Histoire du scoutisme, en bref</h2>
 
 <p>
   Le movement scout a été crée par Robert Stephenson Smyth Baden-Powell est né le 22 février 1857 à Londre.
@@ -198,4 +203,15 @@
   Aujourd'hui on estime le nombre de scouts à plus de 25 millions répartis dans plus de 150 pays.
 </p>
 
+<script>
+  tocbot.init({
+    tocSelector: "#toc",
+    contentSelector: "main",
+    headingSelector: 'h1, h2, h3',
+    collapseDepth: 3,
+    activeLinkClass: '',
+    scrollSmooth: false,
+    includeHtml: true,
+  });
+</script>
 {% endblock %}
