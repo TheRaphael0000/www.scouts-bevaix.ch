@@ -12,6 +12,7 @@ def deploy(c):
         c.run("git stash")
         c.run("git checkout main")
         c.run("git pull")
+        c.run("pip install -r requirements.txt --upgrade")
         c.run("systemctl restart www.scouts-bevaix.ch_gunicorn.service")
 
 
