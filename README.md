@@ -9,4 +9,4 @@ Version 2 du petit site web pour le groupe scout de Bevaix.
 - [x] Ajouter un système le login
 - [x] Ajouter texte sur le scoutisme
 - [x] Design
-- [ ] Ajouter les liens pour les réseaux sociaux (Instagram OK, Facebook KO)
+- [x] Ajouter les liens pour les réseaux sociaux (Instagram OK)
