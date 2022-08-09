@@ -17,6 +17,10 @@ class ImageFile():
     privacy: str
     name: str
 
+    @property
+    def album_split_lines(self):
+        return "<br>".join(self.album.split("-"))
+
     def check_rights(self, request):
         if self.privacy != "public" and not can_view_private(request):
             raise FileNotFoundError

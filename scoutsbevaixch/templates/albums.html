@@ -17,7 +17,7 @@
           <img src="{% url 'thumbnail' card.album card.privacy card.name %}" class="card-img" onload="show_parent_parent(this);">
           <div class="card-img-overlay d-flex align-items-end p-1">
             <p class="card-title p-2 w-100 text-center text-light black_shadow">
-              {{ card.album }}
+              {{ card.album_split_lines|safe }}
             </p>
           </div>
         </a>
