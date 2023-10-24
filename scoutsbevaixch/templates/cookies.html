@@ -1,0 +1,66 @@
+<div id="cookies">
+    <p>
+        Afin de rendre l'utilisation de notre site internet aussi agréable que possible pour nos visiteur·trice·s, nous
+        utilisons des cookies, mais pas d'outils de tracking. En continuant à utiliser ce site, vous acceptez
+        l'utilisation
+        des cookies.
+    </p>
+    <span id="cookies_button">D'accord</span>
+</div>
+
+<style>
+    #cookies {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        padding: 2em;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        text-align: center;
+        z-index: 9;
+        transition: all 1s ease-in-out;
+        opacity: 0;
+        border-top: 1px solid rgba(255, 255, 255, 1);
+        transform: translate(0, 100%);
+    }
+
+    #cookies_button {
+        padding: 8px 20px;
+        border: 1px solid grey;
+        background-color: white;
+        display: inline;
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .visible {
+        transform: translate(0, 0) !important;
+        opacity: 1 !important;
+    }
+</style>
+
+<script>
+    let cookies_storage_key = "hasAcceptedCookies"
+    let cookies_button = document.querySelector("#cookies_button")
+    let cookies = document.querySelector("#cookies")
+
+    cookies_button.addEventListener("click", () => {
+        localStorage.setItem(cookies_storage_key, "true")
+        updateCookiesVisibility()
+    })
+
+    function updateCookiesVisibility() {
+        let value = localStorage.getItem(cookies_storage_key)
+        if (value === null) {
+            setTimeout(function () {
+                cookies.classList.add("visible")
+            }, 1000);
+        }
+        else {
+            cookies.classList.remove("visible")
+        }
+    }
+    updateCookiesVisibility()
+</script>
