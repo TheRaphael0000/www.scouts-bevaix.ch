@@ -20,7 +20,7 @@ CAUTION = 300
 CURRENCY = " CHF"
 tz = "Europe/Zurich"
 
-locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
+# locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
 
 
 def validation(request, id):
