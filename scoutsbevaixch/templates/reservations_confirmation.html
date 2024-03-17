@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Réservation{% endblock %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'accueil' %}">Accueil</a></li>
+<li class="breadcrumb-item"><a href="{% url 'locations' %}">Locations</a></li>
+<li class="breadcrumb-item active" aria-current="page">Réservations</li>
+{% endblock %}
+
+{% block main %}
+
+<h2>Réservations envoyé !</h2>
+
+<p>
+    Merci pour votre réservation ! Une fois le payment effectué nous validerons la location et elle apparaîtera dans le
+    calendrier.
+</p>
+
+{% endblock %}

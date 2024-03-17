@@ -8,7 +8,8 @@
 {% endblock %}
 
 {% block main %}
-<!-- <p class="text-danger">
+
+<!-- <p class="warning">
   Les locations sont temporairement interrompues par manque de gérant. Si vous êtes intéressé par le remplacement du
   gérant, veuillez contacter le responsable du groupe.
 </p> -->
@@ -17,22 +18,42 @@
   Veuillez noter que le chalet ne sera pas disponible à la location du 19 février 2024 au 15 avril 2024.
 </p>
 
+
+<h2>Tarif</h2>
 <p>
-  La location du chalet est au prix de 180 CHF par journée.
+  Prix de la location du chalet par tranches horaire:
+</p>
+<ul>
+  <li>
+    De 11h00 à 17h00: 180 CHF
+  </li>
+  <li>
+    De 17h00 à 11h00: 180 CHF
+  </li>
+  <li>
+    De 17h00 à 11h00 (+ dortoires): 230 CHF
+  </li>
+</ul>
+<p>
+  En plus du prix de la location, nous vous demandons également de verser <b>une caution de 300 CHF.</b>
 </p>
 <p>
-  Il est possible d'avoir un accès aux dortoirs (10 personnes) pour un supplément de 50 CHF.
-</p>
-<p>
-  Pour réserver, vous pouvez trouver nos coordonnées dans la rubrique <a href="/contacts">Contacts</a>. Si vous désirez
-  vérifier la disponibilité du châlet veuillez consulter la rubrique <a href="/calendrier">Calendrier</a>.
-</p>
-<p>
-  Pour louer le châlet, nous vous demandons de lire, remplir et signer et de nous faire parvenir notre <a
-    target="_blank" href="{% static 'pdf/locations/locations.pdf' %}"> contrat de
-    location [PDF]</a>, ainsi que votre preuve de paiement.
+  Pour les autres groupes scouts ou les locations dépassant quatre tranches le prix peut-être négocier par téléphone.
 </p>
 
+<a href="{% url 'reservations' %}"><button class="btn btn-primary">Réserver en ligne</button></a>
+
+<h2>Calendrier d'occupation du chalet</h2>
+<p class="text-danger">
+  Veuillez prêter attention aux heures et dates de fin. (Vous pouvez voir la date de fin en cliquant l'événement
+  du
+  calendrier)
+</p>
+<iframe
+  src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FAmsterdam&bgcolor=%23ffffff&hl=fr&title=Scouts-Bevaix.ch&src=OWQxNzJlNGQyNGRkYmZlZjc5Y2NlZDA3MzAwMmIwYmFlMTY5NzU4MGZiY2Q2ZGI5YzdlNWJiOWUxMzI3ZWQ1NEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=MzA4YzE3YzhjY2VlNmExY2Y5MWM5NmVlZTlkMzE2YmRjOTI2NGQwY2ZhNDg0ZjM3YzM0NzE0ZWU0ZWYxZTU1OEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%230B8043&color=%23D50000"
+  width="100%" height="600px" frameborder="0" scrolling="no"></iframe>
+
+<h2>Matériel disponible</h2>
 <p>
   Dans le prix de la location, est compris :
 </p>
@@ -66,6 +87,7 @@
   </ul>
 </ul>
 
+<h2>Matériel minimal à apporter</h2>
 <p>
   Il sera de votre ressort de rendre le chalet le plus propre possible lors de votre départ, c’est pour cela que <b>nous
     vous demandons de bien vouloir apporter le matériel suivant</b> :

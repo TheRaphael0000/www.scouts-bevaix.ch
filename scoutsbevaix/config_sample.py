@@ -24,4 +24,17 @@ CONTACTS = [
     }
 ]
 
+CALENDAR_LOCATIONS = ""
+CALENDAR_SEANCES = ""
+CALENDAR_DEMANDE = ""
+GOOGLE_CREDS = ""
+
+TELEGRAM_API_KEY = ""
+TELEGRAM_ALLOWED_USERS = [
+    {
+        "chatId": "",
+        "name": ""
+    }
+]
+
 PASSWORD = ""

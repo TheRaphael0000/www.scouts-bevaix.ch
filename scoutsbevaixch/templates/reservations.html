@@ -1,0 +1,304 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Réservation{% endblock %}
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url 'accueil' %}">Accueil</a></li>
+<li class="breadcrumb-item"><a href="{% url 'locations' %}">Locations</a></li>
+<li class="breadcrumb-item active" aria-current="page">Réservations</li>
+{% endblock %}
+
+{% block main %}
+
+<div class="row text-secondary text-small">
+    <small>
+        * = Champs obligatoire
+    </small>
+</div>
+
+<form>
+    <h2>Personne de contact</h2>
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-sm-2">
+            <label class="col-form-label" for="prenom">Prénom*</label>
+        </div>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" name="prenom" id="prenom" value="Robert" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label class="col-form-label" for="nom">Nom*</label>
+        </div>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" name="nom" id="nom" value="Baden-Powell" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label class="col-form-label" for="adresse">Adresse*</label>
+        </div>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" name="adresse" id="adresse" value="Rte de la Montagne" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label class="col-form-label" for="cp_localite">Code postal, Localité*</label>
+        </div>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" name="cp_localite" id="cp_localite" value="2022 Bevaix" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label class="col-form-label" for="email">Email*</label>
+        </div>
+        <div class="col-sm-10">
+            <input class="form-control" type="email" name="email" id="email" value="contact@scouts-bevaix.ch" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label class="col-form-label" for="telephone">Téléphone portable*</label>
+        </div>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" name="telephone" id="telephone" value="+41 79 123 45 67" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label class="col-form-label" for="date_de_naissance">Date de naissance*</label>
+        </div>
+        <div class="col-sm-10">
+            <input class="form-control" type="date" name="date_de_naissance" id="date_de_naissance" required
+                value="2000-03-18">
+        </div>
+    </div>
+
+    <h2>Location</h2>
+    <div class="row">
+        <label class="col-sm-2 col-form-label" for="date_debut">Début de location*</label>
+        <div class="col-sm-10">
+            <input class="form-control col" type="date" name="date_debut" id="date_debut" required value="2024-03-18">
+            <label class="form-label">
+                <input class="form-check-input" name="heure_debut" id="heure_debut" value="11" type="radio" required
+                    checked>
+                11h
+            </label>
+            <label class="form-label">
+                <input class="form-check-input" name="heure_debut" id="heure_debut" value="17" type="radio" required>
+                17h
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-2 col-form-label" for="date_fin">Fin de location*</label>
+        <div class="col-sm-10">
+            <input class="form-control col" type="date" name="date_fin" id="date_fin" required value="2024-03-19">
+            <label class="form-label">
+                <input class="form-check-input" name="heure_fin" id="heure_fin" value="11" type="radio" required
+                    checked>
+                11h
+            </label>
+            <label class="form-label">
+                <input class="form-check-input" name="heure_fin" id="heure_fin" value="17" type="radio" required>
+                17h
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-2 col-form-label" for="nombre_de_personnes">Nombre de personnes attendus*</label>
+        <div class="col-sm-10">
+            <input class="form-control" name="nombre_de_personnes" id="nombre_de_personnes" value="" type="number"
+                value="15" required>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <div class="text-danger" id="error">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-sm-2 col-form-label" for="dortoires">Avec dortoires</label>
+        <div class="col-sm-10">
+            <input class="form-check-input" name="dortoires" id="dortoires" value="1" type="checkbox">
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-sm-2 col-form-label">Prix</label>
+        <div class="col-sm-10">
+            <table>
+                <tr>
+                    <td class="px-2">
+                        Location
+                    </td>
+                    <td class="px-2 text-end">
+                        <span id="prix"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-2">
+                        Caution
+                    </td>
+                    <td class="px-2 text-end">
+                        <span id="caution"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-2">
+                        <b>Total</b>
+                    </td>
+                    <td class="px-2 text-end">
+                        <b id="total"></b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row text-secondary">
+        <p>
+            La réservation sera effective uniquement lors de la réception du payment sur le compte
+        </p>
+        <p>
+            CH11 8080 8006 8235 9023 0<br>
+            Compte d’association<br>
+            Titulaire : Groupe Scout de l’Abbaye
+        </p>
+    </div>
+
+    <div class="row">
+        <label class="col-sm-2 col-form-label" for="remarques">Remarques</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" name="remarques" id="remarques" type="text" rows="5"></textarea>
+        </div>
+    </div>
+
+    <div class="row">
+        <label>
+            <input class="form-check-input" type="checkbox" name="accept_contract" id="check_contract">
+            J'ai lu et j'accepte le
+            <a target="_blank" href="{% static 'pdf/locations/locations.pdf' %}">
+                contrat de location [PDF]
+            </a>
+        </label>
+        <div class="text-danger" id="error_check">
+
+        </div>
+    </div>
+
+    <div class="row m-3">
+        <button type="submit" class="btn btn-primary" id="submit_button">Confirmer la réservation</button>
+    </div>
+</form>
+
+
+<script>
+    let btn = document.querySelector("#validate")
+    let form = document.getElementsByTagName("form")[0]
+    let prix = document.querySelector("#prix")
+    let caution = document.querySelector("#caution")
+    let total = document.querySelector("#total")
+    let error = document.querySelector("#error")
+    let error_check = document.querySelector("#error_check")
+    let check_contract = document.querySelector("#check_contract")
+    let submit_button = document.querySelector("#submit_button")
+
+    let listenChange = [
+        document.getElementsByName("date_de_naissance"),
+        document.getElementsByName("heure_debut"),
+        document.getElementsByName("date_debut"),
+        document.getElementsByName("heure_fin"),
+        document.getElementsByName("date_fin"),
+        document.getElementsByName("dortoires"),
+    ]
+
+    let fetch_queue = []
+    let quering = false
+
+    function add_to_fetch_queue() {
+        fetch_queue.push(1)
+        call_queue()
+    }
+
+    function get_options(verb) {
+        let formData = new FormData(form)
+        let data = Object.fromEntries(formData.entries())
+        return {
+            method: verb,
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+    }
+
+    function call_queue() {
+        if (quering)
+            return;
+        if (fetch_queue.pop() == undefined)
+            return
+
+        fetch_queue = []
+        quering = true
+
+        fetch("/reservations", get_options("OPTIONS")).then(r => r.json()).then(j => {
+            prix.innerHTML = j.prix ?? ""
+            caution.innerHTML = j.caution ?? ""
+            total.innerHTML = j.total ?? ""
+            error.innerHTML = j.error ?? ""
+            setTimeout(() => {
+                quering = false
+                call_queue()
+            }, 1000)
+        })
+    }
+
+    for (let l of listenChange) {
+        for (let li of l) {
+            li.addEventListener("change", add_to_fetch_queue)
+        }
+    }
+    form.addEventListener("submit", validateForm);
+
+    function validateForm(e) {
+        submit_button.disabled = true
+        e.preventDefault()
+        e.stopImmediatePropagation()
+
+        if (!check_contract.checked) {
+            error_check.innerHTML = "Veuillez lire et accepter le contrat de location!"
+            submit_button.disabled = false
+            return
+        }
+
+        if (!e.target.checkValidity()) {
+            submit_button.disabled = false
+            return
+        }
+
+        let options = get_options("POST")
+        cookieStore.get("csrftoken").then(t => {
+            options.headers["X-CSRFToken"] = t.value
+            fetch("/reservations", options).then(r => r.json()).then(r => {
+                if (!r.valid) {
+                    submit_button.disabled = false
+                    error_check.innerHTML = r.error
+                }
+                else {
+                    window.location.replace("/reservations_confirmation")
+                }
+            })
+        })
+    }
+
+    add_to_fetch_queue()
+</script>
+
+{% endblock %}

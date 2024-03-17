@@ -18,12 +18,12 @@ def calendrier(request):
     return render(request, "calendrier.html")
 
 
-def locations(request):
-    return render(request, "locations.html")
-
-
 def emplacement(request):
     return render(request, "emplacement.html")
+
+
+def locations(request):
+    return render(request, "locations.html")
 
 
 def contacts(request):
