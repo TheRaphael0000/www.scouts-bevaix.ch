@@ -208,6 +208,7 @@
     let error_check = document.querySelector("#error_check")
     let check_contract = document.querySelector("#check_contract")
     let submit_button = document.querySelector("#submit_button")
+    let cookie = document.getElementsByName("csrfmiddlewaretoken")[0]
 
     let listenChange = [
         document.getElementsByName("date_de_naissance"),
@@ -234,6 +235,7 @@
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",
+                "X-CSRFToken": cookie.value
             },
         }
     }
@@ -283,17 +285,14 @@
         }
 
         let options = get_options("POST")
-        cookieStore.get("csrftoken").then(t => {
-            options.headers["X-CSRFToken"] = t.value
-            fetch("/reservations", options).then(r => r.json()).then(r => {
-                if (!r.valid) {
-                    submit_button.disabled = false
-                    error_check.innerHTML = r.error
-                }
-                else {
-                    window.location.replace("/reservations_confirmation")
-                }
-            })
+        fetch("/reservations", options).then(r => r.json()).then(r => {
+            if (!r.valid) {
+                submit_button.disabled = false
+                error_check.innerHTML = r.error
+            }
+            else {
+                window.location.replace("/reservations_confirmation")
+            }
         })
     }
 
