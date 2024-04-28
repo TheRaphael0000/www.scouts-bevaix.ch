@@ -8,7 +8,7 @@ from django.views.generic import View
 from django.conf import settings
 from django.http import JsonResponse
 
-from .google_calendar import has_events, add_event, get_event
+from .google_calendar import get_events, add_event, get_event
 from .telegram_chat import send_message_async
 
 MAX_LENGTH = 14
@@ -203,12 +203,18 @@ def validate_datetime(date_str, time_str):
 
 
 def check_if_has_events(data):
-    locations = has_events(settings.CALENDAR_LOCATIONS,
+    locations = get_events(settings.CALENDAR_LOCATIONS,
                            data["start_datetime"], data["end_datetime"])
-    seances = has_events(settings.CALENDAR_SEANCES,
+    seances = get_events(settings.CALENDAR_SEANCES,
                          data["start_datetime"], data["end_datetime"])
 
-    busy = locations or seances
-    if busy:
-        raise Exception(
-            "Il y a déjà une réservation du chalet lors de la période sélectionnée !")
+    total = locations + seances
+    print(total)
+    if len(total) > 1:
+        raise Exception(f"Le chalet a déjà {len(total)} réservations dans la période sélectionnée")
+    if len(total) == 1:
+        l = total[0]
+        format = "%d.%m.%Y %Hh"
+        start = datetime.fromisoformat(l["start"]["dateTime"]).strftime(format)
+        end = datetime.fromisoformat(l["end"]["dateTime"]).strftime(format)
+        raise Exception(f"Le chalet déjà reservé du {start} à {end}")

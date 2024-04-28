@@ -12,16 +12,16 @@ credentials = service_account.Credentials.from_service_account_file(
 service = build('calendar', 'v3', credentials=credentials)
 
 
-def has_events(calendar_id, start_datetime, end_datetime):
+def get_events(calendar_id, start_datetime, end_datetime):
     events_result = service.events().list(
         calendarId=calendar_id,
         timeMin=(start_datetime + timedelta(hours=1)).isoformat("T") + "Z",
         timeMax=(end_datetime - timedelta(hours=1)).isoformat("T") + "Z",
         singleEvents=True,
-        maxResults=1,
+        maxResults=5,
     ).execute()
     events = events_result.get('items', [])
-    return len(events) > 0
+    return events
 
 
 def add_event(calendarId, event):
