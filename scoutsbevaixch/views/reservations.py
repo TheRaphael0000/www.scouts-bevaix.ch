@@ -31,7 +31,7 @@ def validation_real(request, id):
     event_demandes = get_event(settings.CALENDAR_DEMANDE, id)
     event_locations = get_event_from_event(event_demandes)
     add_event(settings.CALENDAR_LOCATIONS, event_locations)
-    return render(request, "validation.html")
+    return render(request, "validation_real.html")
 
 
 def reservations_confirmation(request):
