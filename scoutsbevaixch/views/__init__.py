@@ -15,5 +15,6 @@ from .static_views import emplacement
 from .static_views import contacts
 from .static_views import locations
 from .reservations import validation
+from .reservations import validation_real
 from .reservations import reservations_confirmation
 from .reservations import Reservations

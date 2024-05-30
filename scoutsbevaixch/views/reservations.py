@@ -24,6 +24,10 @@ tz = "Europe/Zurich"
 
 
 def validation(request, id):
+    return render(request, "validation.html", {"id": id})
+
+
+def validation_real(request, id):
     event_demandes = get_event(settings.CALENDAR_DEMANDE, id)
     event_locations = get_event_from_event(event_demandes)
     add_event(settings.CALENDAR_LOCATIONS, event_locations)
@@ -211,7 +215,8 @@ def check_if_has_events(data):
     total = locations + seances
     print(total)
     if len(total) > 1:
-        raise Exception(f"Le chalet a déjà {len(total)} réservations dans la période sélectionnée")
+        raise Exception(f"Le chalet a déjà {
+                        len(total)} réservations dans la période sélectionnée")
     if len(total) == 1:
         l = total[0]
         format = "%d.%m.%Y %Hh"

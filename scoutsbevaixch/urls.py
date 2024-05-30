@@ -23,6 +23,7 @@ urlpatterns = [
     path('locations', views.locations, name='locations'),
     path('reservations', views.Reservations.as_view(), name='reservations'),
     path('validation/<str:id>', views.validation, name='validation'),
+    path('validation_real/<str:id>', views.validation_real, name='validation_real'),
     path('reservations_confirmation', views.reservations_confirmation,
          name='reservations_confirmation'),
     path('emplacement', views.emplacement, name='emplacement'),
