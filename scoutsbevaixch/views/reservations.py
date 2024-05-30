@@ -215,8 +215,8 @@ def check_if_has_events(data):
     total = locations + seances
     print(total)
     if len(total) > 1:
-        raise Exception(f"Le chalet a déjà {
-                        len(total)} réservations dans la période sélectionnée")
+        msg = f"Le chalet a déjà {len(total)} réservations dans la période sélectionnée"
+        raise Exception(msg)
     if len(total) == 1:
         l = total[0]
         format = "%d.%m.%Y %Hh"
