@@ -3,18 +3,13 @@ services:
         build: .
         container_name: scoutsbevaixch
         env_file: ".env"
+        ports:
+            - 80:80
         volumes:
-            - /mnt/samba/images/scouts-bevaix.ch:/app/imgs
+            - ./imgs:/app/imgs
             - ./google_token.json:/app/google_token.json
             - static:/app/static
-        networks:
-            - nginx
         restart: unless-stopped
-
-networks:
-  nginx:
-    external: true
-    name: nginx
 
 volumes:
     static:

@@ -5,11 +5,14 @@ import locale
 
 from django.shortcuts import render
 from django.views.generic import View
-from django.conf import settings
 from django.http import JsonResponse
+from dotenv import load_dotenv
+import os
 
 from .google_calendar import get_events, add_event, get_event
 from .telegram_chat import send_message_async
+
+load_dotenv()
 
 MAX_LENGTH = 14
 MAX_FUTURE = 365
@@ -28,9 +31,9 @@ def validation(request, id):
 
 
 def validation_real(request, id):
-    event_demandes = get_event(settings.CALENDAR_DEMANDE, id)
+    event_demandes = get_event(os.getenv("CALENDAR_DEMANDE"), id)
     event_locations = get_event_from_event(event_demandes)
-    add_event(settings.CALENDAR_LOCATIONS, event_locations)
+    add_event(os.getenv("CALENDAR_LOCATIONS"), event_locations)
     return render(request, "validation_real.html")
 
 
@@ -60,7 +63,7 @@ class Reservations(View):
             if write:
                 create_description(data)
                 data["event"] = add_event(
-                    settings.CALENDAR_DEMANDE, get_event_from_location(data))
+                    os.getenv("CALENDAR_DEMANDE"), get_event_from_location(data))
                 message = data["description"] + \
                     "\nValidation:\nhttps://scouts-bevaix.ch/validation/" + \
                     data["event"]["id"]
@@ -207,9 +210,9 @@ def validate_datetime(date_str, time_str):
 
 
 def check_if_has_events(data):
-    locations = get_events(settings.CALENDAR_LOCATIONS,
+    locations = get_events(os.getenv("CALENDAR_LOCATIONS"),
                            data["start_datetime"], data["end_datetime"])
-    seances = get_events(settings.CALENDAR_SEANCES,
+    seances = get_events(os.getenv("CALENDAR_SEANCES"),
                          data["start_datetime"], data["end_datetime"])
 
     total = locations + seances
