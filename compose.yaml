@@ -1,0 +1,13 @@
+services:
+    web:
+        build: .
+        container_name: scoutsbevaixch
+        ports:
+            - 80:80
+        volumes:
+            - ./imgs:/app/imgs
+            - ./google_token.json:/app/google_token.json
+            - static:/app/static
+
+volumes:
+    static:

@@ -1,4 +1,6 @@
 config.py
+google_token.json
+static
 
 contacts_data.py
 imgs
