@@ -1,6 +1,6 @@
-config.py
 google_token.json
 static
+.env
 
 contacts_data.py
 imgs
