@@ -2,9 +2,13 @@ import tempfile
 from pathlib import Path
 from PIL import Image
 import secrets
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Django Settings
-DEBUG = False
+DEBUG = os.getenv("DEBUG", "False") == "True"
 SECRET_KEY = secrets.token_urlsafe(30)
 ALLOWED_HOSTS = ["*"]
 
