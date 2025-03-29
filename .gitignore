@@ -1,5 +1,6 @@
 google_token.json
 static
+!scoutsbevaixch/static
 .env
 
 contacts_data.py
