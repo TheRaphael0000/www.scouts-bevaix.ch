@@ -4,7 +4,7 @@ services:
         container_name: scoutsbevaixch
         env_file: ".env"
         volumes:
-            - /mnt/samba/images/scouts-bevaix.ch:/app/imgs
+            - ./imgs:/app/imgs
             - ./google_token.json:/app/google_token.json
             - static:/app/static
         networks:
