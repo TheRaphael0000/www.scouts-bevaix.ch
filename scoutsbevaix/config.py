@@ -22,19 +22,24 @@ MAX_AGE = 86400
 
 CONTACTS = [
     {
-        "titre": "Responsable de Groupe et de Troupe",
+        "titre": "Responsable de Groupe et de Poste",
         "nom": "Colibri, Kim Huguenin",
         "email": "contact@scouts-bevaix.ch",
         "telephone": "079 572 25 60",
     },
     {
+        "titre": "Responsable de Troupe",
+        "nom": "Rangi, Maxime Frasse",
+        "telephone": "078 873 45 79",
+    },
+    {
         "titre": "Responsable de Meute",
-        "nom": "Gerbille, Matteo Matulli",
-        "telephone": "079 443 77 60",
+        "nom": "Arni, Alix Huguenin",
+        "telephone": "076 541 09 38",
     },
     {
         "titre": "Gérance locations",
-        "nom": "Catherine Béguin",
+        "nom": "",
         "email": "locations@scouts-bevaix.ch",
     },
     {
