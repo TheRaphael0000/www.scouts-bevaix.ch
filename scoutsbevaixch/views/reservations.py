@@ -23,6 +23,8 @@ CAUTION = 300
 CURRENCY = " CHF"
 tz = "Europe/Zurich"
 
+valid_times = ["11h30", "17h30"]
+
 # locale.setlocale(locale.LC_ALL, 'fr_FR.UTF-8')
 
 
@@ -43,7 +45,7 @@ def reservations_confirmation(request):
 
 class Reservations(View):
     async def get(self, request):
-        return render(request, "reservations.html")
+        return render(request, "reservations.html", context={"valid_times": valid_times})
 
     async def post(self, request):
         return await Reservations.validation_pipeline(request, True)
@@ -201,11 +203,11 @@ def validate_date(data):
 
 
 def validate_datetime(date_str, time_str):
-    valid_time = [11, 17]
     date_ = date.fromisoformat(date_str)
-    time_ = time(hour=int(time_str))
-    if time_.hour not in valid_time:
+    if time_str not in valid_times:
         raise Exception()
+    hour, minute = time_str.split("h")
+    time_ = time(hour=int(hour), minute=int(minute))
     return datetime.combine(date_, time_)
 
 
@@ -221,7 +223,21 @@ def check_if_has_events(data):
         raise Exception(msg)
     if len(total) == 1:
         l = total[0]
-        format = "%d.%m.%Y %Hh"
-        start = datetime.fromisoformat(l["start"]["dateTime"]).strftime(format)
-        end = datetime.fromisoformat(l["end"]["dateTime"]).strftime(format)
+        format_with_time = "%d.%m.%Y %Hh%M"
+        format_without_time = "%d.%m.%Y"
+
+        try:
+            print(l)
+            if "dateTime" in l["start"]:
+                start = datetime.fromisoformat(l["start"].get("dateTime")).strftime(format_with_time)
+            if "date" in l["start"]:
+                start = datetime.fromisoformat(l["start"].get("date")).strftime(format_without_time)
+            if "dateTime" in l["end"]:
+                end = datetime.fromisoformat(l["end"].get("dateTime")).strftime(format_with_time)
+            if "date" in l["end"]:
+                end = datetime.fromisoformat(l["end"].get("date")).strftime(format_without_time)
+
+        except:
+            raise Exception(f"Le chalet déjà reservé")
+
         raise Exception(f"Le chalet déjà reservé du {start} à {end}")
