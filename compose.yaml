@@ -6,7 +6,7 @@ services:
         volumes:
             - ./imgs:/app/imgs
             - ./google_token.json:/app/google_token.json
-            - static:/app/static
+            - ./static:/app/static
         networks:
             - nginx
         restart: unless-stopped
@@ -15,6 +15,3 @@ networks:
   nginx:
     external: true
     name: nginx
-
-volumes:
-    static:
